@@ -66,18 +66,18 @@ def create_share_api(request):
     iv = payload.get("iv", "")
     label = (payload.get("label") or "")[:100]
 
-    if not is_valid_base64(ciphertext, settings.KRYPBOX_MAX_CIPHERTEXT_LENGTH):
+    if not is_valid_base64(ciphertext, settings.SefiBox_MAX_CIPHERTEXT_LENGTH):
         return JsonResponse({"error": "Invalid or oversized ciphertext."}, status=400)
     if not is_valid_base64(iv, 64):
         return JsonResponse({"error": "Invalid IV."}, status=400)
 
     try:
         expires_hours = int(payload.get("expires_hours", 0))
-        max_views = int(payload.get("max_views", settings.KRYPBOX_DEFAULT_MAX_VIEWS))
+        max_views = int(payload.get("max_views", settings.SefiBox_DEFAULT_MAX_VIEWS))
     except (TypeError, ValueError):
         return JsonResponse({"error": "Invalid expiry/max_views."}, status=400)
 
-    if expires_hours not in settings.KRYPBOX_EXPIRY_CHOICES_HOURS:
+    if expires_hours not in settings.SefiBox_EXPIRY_CHOICES_HOURS:
         return JsonResponse({"error": "Invalid expiry option."}, status=400)
     if not (1 <= max_views <= 100):
         return JsonResponse({"error": "max_views must be between 1 and 100."}, status=400)

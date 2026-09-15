@@ -1,4 +1,4 @@
-# KrypBox
+# SefiBox
 
 A secure secret-sharing platform. Secrets are encrypted **in the browser**
 with the Web Crypto API (AES-GCM 256) before anything is sent to the
@@ -49,7 +49,7 @@ pip install -r requirements.txt
 cp .env.example .env   # then edit values, especially DJANGO_SECRET_KEY and DB_*
 
 # create the database (adjust to your local Postgres setup)
-createdb krypbox
+createdb SefiBox
 
 python manage.py migrate
 python manage.py createsuperuser
@@ -72,7 +72,7 @@ EMAIL_PORT=587
 EMAIL_HOST_USER=youraddress@gmail.com
 EMAIL_HOST_PASSWORD=your-16-char-app-password
 EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL=KrypBox <youraddress@gmail.com>
+DEFAULT_FROM_EMAIL=SefiBox <youraddress@gmail.com>
 ```
 
 Then **restart `python manage.py runserver`** — Django only reads `.env`
@@ -128,7 +128,7 @@ Other things to check:
 - Serve over HTTPS and set `DJANGO_SECURE_SSL_REDIRECT`,
   `DJANGO_SESSION_COOKIE_SECURE`, `DJANGO_CSRF_COOKIE_SECURE` to `True`
   (these already default to `True` whenever `DEBUG=False`).
-- Put KrypBox behind a reverse proxy that sets/strips
+- Put SefiBox behind a reverse proxy that sets/strips
   `X-Forwarded-For` correctly — `shares/security.py:client_ip` trusts
   that header.
 - Rotate `DJANGO_SECRET_KEY` and Postgres credentials via your secrets

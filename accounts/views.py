@@ -38,7 +38,7 @@ def _send_verification_email(request, user):
     verify_path = f"/accounts/verify/{uidb64}/{token}/"
     verify_url = request.build_absolute_uri(verify_path)
 
-    subject = "Verify your KrypBox account"
+    subject = "Verify your SefiBox account"
     text_body = render_to_string(
         "accounts/email/verify_email.txt",
         {"user": user, "verify_url": verify_url},
@@ -77,7 +77,7 @@ def verify_email(request, uidb64, token):
         user.is_active = True
         user.save(update_fields=["is_active"])
         login(request, user)
-        messages.success(request, "Email verified — welcome to KrypBox!")
+        messages.success(request, "Email verified — welcome to SefiBox!")
         return redirect("shares:dashboard")
 
     if user is not None and user.is_active:

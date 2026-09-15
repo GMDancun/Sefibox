@@ -1,5 +1,5 @@
 /**
- * KrypBox client-side crypto.
+ * SefiBox client-side crypto.
  *
  * All encryption and decryption happens here, in the browser, using
  * the native Web Crypto API (AES-GCM 256). The server never receives
@@ -114,7 +114,7 @@
         return new TextDecoder().decode(plaintextBuffer);
     }
 
-    global.KrypBoxCrypto = {
+    global.SefiBoxCrypto = {
         encryptText: encryptText,
         decryptText: decryptText,
     };
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.textContent = "Encrypting…";
 
         try {
-            const { ciphertext, iv, keyUrlSafe } = await KrypBoxCrypto.encryptText(plaintext);
+            const { ciphertext, iv, keyUrlSafe } = await SefiBoxCrypto.encryptText(plaintext);
 
             const response = await fetch("/api/create/", {
                 method: "POST",

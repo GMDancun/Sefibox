@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}KrypBox{% endblock %}</title>
+    <title>{% block title %}SefiBox{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     {% block extra_head %}{% endblock %}
@@ -13,7 +13,7 @@
     <header class="topbar">
         <div class="container topbar-inner">
             <a href="{% if user.is_authenticated %}{% url 'shares:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}" class="brand">
-                <span class="brand-lock">🔒</span> KrypBox
+                <span class="brand-lock">🔒</span> SefiBox
             </a>
             <nav class="nav">
                 {% if user.is_authenticated %}
@@ -44,7 +44,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>KrypBox — secrets are encrypted in your browser. The server never sees plaintext.</p>
+            <p>SefiBox — secrets are encrypted in your browser. The server never sees plaintext.</p>
         </div>
     </footer>
     {% block extra_scripts %}{% endblock %}

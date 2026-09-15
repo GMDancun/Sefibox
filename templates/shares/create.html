@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}New Secret — KrypBox{% endblock %}
+{% block title %}New Secret — SefiBox{% endblock %}
 {% block content %}
 <div class="card card-narrow">
     <h1>Create a secret</h1>
-    <p class="muted">Your secret is encrypted in this browser before it ever leaves your machine. KrypBox's server never sees the plaintext or the decryption key.</p>
+    <p class="muted">Your secret is encrypted in this browser before it ever leaves your machine. SefiBox's server never sees the plaintext or the decryption key.</p>
 
     <form id="create-form" novalidate>
         {% csrf_token %}

@@ -1,9 +1,9 @@
 """
-Server-side security helpers for KrypBox.
+Server-side security helpers for SefiBox.
 
 Important design note
 ----------------------
-KrypBox performs *encryption and decryption in the browser* using the
+SefiBox performs *encryption and decryption in the browser* using the
 Web Crypto API (see static/js/crypto.js). The Django server:
 
   * never sees plaintext secrets,

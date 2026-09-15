@@ -27,13 +27,13 @@ class CreateShareForm(forms.Form):
         ),
     )
     expires_hours = forms.ChoiceField(
-        choices=[(h, _label_for_hours(h)) for h in settings.KRYPBOX_EXPIRY_CHOICES_HOURS],
+        choices=[(h, _label_for_hours(h)) for h in settings.SefiBox_EXPIRY_CHOICES_HOURS],
         required=True,
         widget=forms.Select(attrs={"class": "input"}),
     )
     max_views = forms.IntegerField(
         min_value=1,
         max_value=100,
-        initial=settings.KRYPBOX_DEFAULT_MAX_VIEWS,
+        initial=settings.SefiBox_DEFAULT_MAX_VIEWS,
         widget=forms.NumberInput(attrs={"class": "input"}),
     )

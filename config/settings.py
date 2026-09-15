@@ -1,5 +1,5 @@
 """
-KrypBox settings.
+SefiBox settings.
 
 Security-conscious defaults for a secret-sharing platform.
 All secrets/config come from environment variables (.env in dev).
@@ -87,8 +87,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME", "krypbox"),
-        "USER": os.environ.get("DB_USER", "krypbox"),
+        "NAME": os.environ.get("DB_NAME", "SefiBox"),
+        "USER": os.environ.get("DB_USER", "SefiBox"),
         "PASSWORD": os.environ.get("DB_PASSWORD", ""),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
@@ -177,7 +177,7 @@ EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", default=True)
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "KrypBox <no-reply@krypbox.local>")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "SefiBox <no-reply@SefiBox.local>")
 
 # How long an emailed verification link stays valid, in seconds.
 # Reuses Django's PASSWORD_RESET_TIMEOUT since accounts/tokens.py builds
@@ -185,12 +185,12 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "KrypBox <no-reply@kry
 PASSWORD_RESET_TIMEOUT = int(os.environ.get("EMAIL_VERIFICATION_TIMEOUT_SECONDS", 60 * 60 * 24 * 3))
 
 # ---------------------------------------------------------------------------
-# KrypBox application settings
+# SefiBox application settings
 # ---------------------------------------------------------------------------
 # Default/allowed expiration windows (hours) offered on the create-share form.
-KRYPBOX_EXPIRY_CHOICES_HOURS = [1, 24, 72, 168]  # 1h, 1d, 3d, 7d
-KRYPBOX_MAX_CIPHERTEXT_LENGTH = 200_000  # base64 chars (~150KB plaintext ceiling)
-KRYPBOX_DEFAULT_MAX_VIEWS = 1
+SefiBox_EXPIRY_CHOICES_HOURS = [1, 24, 72, 168]  # 1h, 1d, 3d, 7d
+SefiBox_MAX_CIPHERTEXT_LENGTH = 200_000  # base64 chars (~150KB plaintext ceiling)
+SefiBox_DEFAULT_MAX_VIEWS = 1
 
 # ---------------------------------------------------------------------------
 # Logging — never log request bodies (which could contain ciphertext) at

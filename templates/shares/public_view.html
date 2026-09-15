@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Shared Secret — KrypBox{% endblock %}
+{% block title %}Shared Secret — SefiBox{% endblock %}
 {% block content %}
 <div class="card card-narrow">
     <h1>{% if label %}{{ label }}{% else %}A secret was shared with you{% endif %}</h1>
-    <p class="muted">This secret is decrypted entirely in your browser. It has not been shown to KrypBox's server.</p>
+    <p class="muted">This secret is decrypted entirely in your browser. It has not been shown to SefiBox's server.</p>
 
     <div
         id="secret-data"
@@ -50,7 +50,7 @@
             return;
         }
 
-        KrypBoxCrypto.decryptText(dataEl.dataset.ciphertext, dataEl.dataset.iv, key)
+        SefiBoxCrypto.decryptText(dataEl.dataset.ciphertext, dataEl.dataset.iv, key)
             .then(function (plaintext) {
                 output.value = plaintext;
                 copyBtn.hidden = false;

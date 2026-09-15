@@ -9,7 +9,7 @@ class Share(models.Model):
     """
     An encrypted secret share.
 
-    KrypBox never stores plaintext. `ciphertext` and `iv` are opaque
+    SefiBox never stores plaintext. `ciphertext` and `iv` are opaque
     base64 blobs produced by the browser's Web Crypto API; the
     AES-GCM key that would decrypt them is never sent to or stored by
     the server (it lives only in the recipient URL's fragment).
