@@ -1,0 +1,24 @@
+<tr id="share-row-{{ share.id }}">
+    <td>{{ share.label|default:"(untitled)" }}</td>
+    <td>{{ share.created_at|date:"M j, Y H:i" }}</td>
+    <td>{{ share.expires_at|date:"M j, Y H:i"|default:"—" }}</td>
+    <td>{{ share.view_count }}{% if share.max_views %} / {{ share.max_views }}{% endif %}</td>
+    <td>
+        {% if share.is_active %}
+            <span class="badge badge-active">active</span>
+        {% else %}
+            <span class="badge badge-inactive">{{ share.unavailable_reason }}</span>
+        {% endif %}
+    </td>
+    <td>
+        {% if share.is_active %}
+        <button
+            class="btn btn-sm btn-danger"
+            hx-post="{% url 'shares:revoke' share.id %}"
+            hx-target="#share-row-{{ share.id }}"
+            hx-swap="outerHTML"
+            hx-confirm="Revoke this share? The link will stop working immediately."
+        >Revoke</button>
+        {% endif %}
+    </td>
+</tr>

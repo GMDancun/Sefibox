@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Log in — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow">
+    <h1>Log in</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}<div class="field-error">{{ field.errors|striptags }}</div>{% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <p class="muted">No account? <a href="{% url 'accounts:register' %}">Sign up</a></p>
+    <p class="muted">Didn't get a verification email? <a href="{% url 'accounts:resend_verification' %}">Resend it</a></p>
+</div>
+{% endblock %}

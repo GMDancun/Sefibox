@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}New Secret — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow">
+    <h1>Create a secret</h1>
+    <p class="muted">Your secret is encrypted in this browser before it ever leaves your machine. KrypBox's server never sees the plaintext or the decryption key.</p>
+
+    <form id="create-form" novalidate>
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_secret">Secret</label>
+            <textarea id="id_secret" name="secret" rows="5" class="input" placeholder="Paste the password, API key, or note to share…" required></textarea>
+        </div>
+
+        <div class="field">
+            <label for="{{ form.label.id_for_label }}">{{ form.label.label }}</label>
+            {{ form.label }}
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label for="{{ form.expires_hours.id_for_label }}">Expires after</label>
+                {{ form.expires_hours }}
+            </div>
+            <div class="field">
+                <label for="{{ form.max_views.id_for_label }}">Max views</label>
+                {{ form.max_views }}
+            </div>
+        </div>
+
+        <div id="create-error" class="form-error" hidden></div>
+
+        <button type="submit" id="create-submit" class="btn btn-primary btn-block">Encrypt &amp; create link</button>
+    </form>
+
+    <div id="result-panel" class="result-panel" hidden>
+        <h2>✅ Secret created</h2>
+        <p class="muted">Share this link with the recipient. It will not work again once revoked, expired, or view limit reached. The decryption key is embedded in the link after the <code>#</code> — it is never sent to or stored on the server.</p>
+        <div class="share-link-row">
+            <input type="text" id="share-link" class="input" readonly>
+            <button type="button" id="copy-link-btn" class="btn btn-sm">Copy</button>
+        </div>
+        <a href="{% url 'shares:dashboard' %}" class="btn btn-ghost btn-block" style="margin-top:1rem;">Back to dashboard</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/crypto.js' %}"></script>
+{% endblock %}

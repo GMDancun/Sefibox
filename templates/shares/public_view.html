@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Shared Secret — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow">
+    <h1>{% if label %}{{ label }}{% else %}A secret was shared with you{% endif %}</h1>
+    <p class="muted">This secret is decrypted entirely in your browser. It has not been shown to KrypBox's server.</p>
+
+    <div
+        id="secret-data"
+        data-ciphertext="{{ ciphertext }}"
+        data-iv="{{ iv }}"
+        hidden
+    ></div>
+
+    <div id="key-missing-warning" class="form-error" hidden>
+        This link is missing its decryption key (the part after <code>#</code>). Make sure you copied the full link.
+    </div>
+
+    <div id="decrypt-error" class="form-error" hidden>
+        Could not decrypt this secret. The link may be incomplete or corrupted.
+    </div>
+
+    <div class="field">
+        <label>Decrypted content</label>
+        <textarea id="secret-output" class="input" rows="5" readonly placeholder="Decrypting…"></textarea>
+    </div>
+
+    <button type="button" id="copy-secret-btn" class="btn btn-sm" hidden>Copy to clipboard</button>
+
+    <p class="warning-note">⚠️ This secret may have a limited number of views. Save it now if you need it later — reloading this page may consume another view.</p>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/crypto.js' %}"></script>
+<script>
+    (function () {
+        var dataEl = document.getElementById("secret-data");
+        var output = document.getElementById("secret-output");
+        var copyBtn = document.getElementById("copy-secret-btn");
+        var keyMissing = document.getElementById("key-missing-warning");
+        var decryptError = document.getElementById("decrypt-error");
+
+        var key = window.location.hash ? window.location.hash.substring(1) : "";
+
+        if (!key) {
+            keyMissing.hidden = false;
+            output.placeholder = "No decryption key present in link.";
+            return;
+        }
+
+        KrypBoxCrypto.decryptText(dataEl.dataset.ciphertext, dataEl.dataset.iv, key)
+            .then(function (plaintext) {
+                output.value = plaintext;
+                copyBtn.hidden = false;
+            })
+            .catch(function (err) {
+                console.error("Decryption failed", err);
+                decryptError.hidden = false;
+                output.placeholder = "Decryption failed.";
+            });
+
+        copyBtn.addEventListener("click", function () {
+            navigator.clipboard.writeText(output.value).then(function () {
+                copyBtn.textContent = "Copied!";
+                setTimeout(function () { copyBtn.textContent = "Copy to clipboard"; }, 1500);
+            });
+        });
+    })();
+</script>
+{% endblock %}

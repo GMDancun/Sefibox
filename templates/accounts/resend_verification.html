@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Resend verification — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow">
+    <h1>Resend verification email</h1>
+    {% if sent %}
+        <p class="muted">If an unverified account exists for that email, we've sent a new verification link. Check your inbox.</p>
+        <a href="{% url 'accounts:login' %}" class="btn btn-block">Back to log in</a>
+    {% else %}
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}<div class="field-error">{{ field.errors|striptags }}</div>{% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">Send verification link</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

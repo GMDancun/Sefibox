@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KrypBox{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a href="{% if user.is_authenticated %}{% url 'shares:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}" class="brand">
+                <span class="brand-lock">🔒</span> KrypBox
+            </a>
+            <nav class="nav">
+                {% if user.is_authenticated %}
+                    <span class="nav-user">{{ user.username }}</span>
+                    <a href="{% url 'shares:create' %}" class="btn btn-sm">New Secret</a>
+                    <form method="post" action="{% url 'accounts:logout' %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-ghost">Log out</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-sm btn-ghost">Log in</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-sm">Sign up</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message message-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>KrypBox — secrets are encrypted in your browser. The server never sees plaintext.</p>
+        </div>
+    </footer>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

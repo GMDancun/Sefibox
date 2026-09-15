@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Check your email — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow center">
+    <h1>📬 Check your inbox</h1>
+    <p class="muted">We sent a verification link to <strong>{{ email }}</strong>. Click it to activate your account.</p>
+    <p class="muted">Didn't get it? Check spam, or <a href="{% url 'accounts:resend_verification' %}">resend the verification email</a>.</p>
+</div>
+{% endblock %}

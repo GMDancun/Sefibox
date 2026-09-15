@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Secret unavailable — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow center">
+    {% if reason == "not_found" %}
+        <h1>🔍 Not found</h1>
+        <p class="muted">This link doesn't correspond to any secret. Double check you copied the full URL.</p>
+    {% elif reason == "expired" %}
+        <h1>⏰ Expired</h1>
+        <p class="muted">This secret's expiration time has passed and it is no longer accessible.</p>
+    {% elif reason == "revoked" %}
+        <h1>🚫 Revoked</h1>
+        <p class="muted">The owner revoked access to this secret.</p>
+    {% elif reason == "max_views_exceeded" %}
+        <h1>👁️ View limit reached</h1>
+        <p class="muted">This secret has already been viewed the maximum number of times allowed.</p>
+    {% else %}
+        <h1>Unavailable</h1>
+        <p class="muted">This secret is no longer available.</p>
+    {% endif %}
+</div>
+{% endblock %}

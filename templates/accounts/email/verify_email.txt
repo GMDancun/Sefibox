@@ -1,0 +1,12 @@
+Hi {{ user.username }},
+
+Thanks for signing up for KrypBox. Please verify your email address by
+clicking the link below:
+
+{{ verify_url }}
+
+This link expires in a few days and can only be used once.
+
+If you didn't create a KrypBox account, you can safely ignore this email.
+
+-- KrypBox

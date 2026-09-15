@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Invalid link — KrypBox{% endblock %}
+{% block content %}
+<div class="card card-narrow center">
+    <h1>⚠️ Link invalid or expired</h1>
+    <p class="muted">This verification link is invalid, expired, or has already been used.</p>
+    <a href="{% url 'accounts:resend_verification' %}" class="btn btn-primary">Resend verification email</a>
+</div>
+{% endblock %}
